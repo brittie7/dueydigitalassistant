@@ -34,7 +34,6 @@ function formatQueryParams(params) {
 
 /*RETURNS EACH TYPE OF RETULT BASED ON SEARCH CRITERIA*/
 function getResources(query, maximumResults) {
-  console.log("getResources ran");
 
   /*CREATES THE VIDEO URL DYNAMICALLY*/
   const videoParams = {
@@ -43,9 +42,7 @@ function getResources(query, maximumResults) {
     maxResults: maximumResults,
   };
   const queryStringVideo = formatQueryParams(videoParams);
-  console.log("query string:", queryStringVideo);
   const urlVideo = videoURL + "&" + queryStringVideo;
-  console.log(urlVideo);
 
   /*CREATES THE BOOKS URL DYNAMICALLY*/
   const bookParams = {
@@ -54,9 +51,7 @@ function getResources(query, maximumResults) {
     maxResults: maximumResults,
   };
   const queryStringBooks = formatQueryParams(bookParams);
-  console.log("query string books:", queryStringBooks);
   const urlBooks = booksURL + "&" + queryStringBooks;
-  console.log(urlBooks);
 
   /*CREATES THE PODCAST URL DYNAMICALLY*/
   const podcastParams = {
@@ -65,11 +60,8 @@ function getResources(query, maximumResults) {
     maxResults: maximumResults,
   };
 
-  console.log(podcastParams);
   const queryStringPodcasts = formatQueryParams(podcastParams);
-  console.log("query string books:", queryStringPodcasts);
   const urlPodcasts = podcastURL + "&" + queryStringPodcasts;
-  console.log(urlPodcasts);
 
   fetch(urlVideo)
     .then((response) => {
@@ -106,15 +98,6 @@ function getResources(query, maximumResults) {
 }
 
 function displayResults(response1, response2, response3) {
-  //add arguments for responses 1 and 2
-  console.log("Video Results:", response1);
-  console.log("Book Results", response2);
-  console.log("Podcast Results:", response3);
-
-  /*console.log(responseJson.items[0].id.videoId);
-  console.log(responseJson.items[0].snippet.title);
-  console.log(responseJson.items[0].snippet.thumbnails.default.url);
-  console.log(responseJson.items[0].snippet.description);*/
   $(
     "#js-results-list-video, #js-results-list-books, #js-results-list-podcast"
   ).empty();
@@ -126,22 +109,12 @@ function displayResults(response1, response2, response3) {
     );
   }
 
-  /*console.log("Books");
-  console.log(response2);
-  console.log(response2.items[0].volumeInfo.title);*/
-
   for (let i = 0; i < response2.items.length; i++) {
     $("#js-results-list-books").append(
       `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description}</p>
       </li>`
     );
   }
-  /* console.log(
-    "check response 3 object",
-    response3.results[0].thumbnail,
-    response3.results[0].title_original,
-    response3.results[0].description_original
-  );*/
 
   for (let i = 0; i < maxResults; i++) {
     $("#js-results-list-podcast").append(
@@ -157,7 +130,6 @@ function displayResults(response1, response2, response3) {
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    console.log("WatchForm Ran");
     const searchTerm = $("#js-search-term").val();
     maxResults = $("#js-max-results").val();
     console.log(searchTerm, maxResults);
