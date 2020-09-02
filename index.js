@@ -5,19 +5,19 @@ let maxResults;
 
 const booksURL =
   "https://www.googleapis.com/books/v1/volumes?fields=kind,items(volumeInfo/title,volumeInfo/subtitle,volumeInfo/authors,volumeInfo/description,volumeInfo/imageLinks/thumbnail)";
-let booksSecretKey = config.booksApiKey;
+let booksApiKey = config.booksSecretKey;
 
 /* YOUTUBE API */
 
 const videoURL =
   "https://www.googleapis.com/youtube/v3/search?part=snippet&order=relevance&type=video";
-let videoSecretKey = config.videoApiKey;
+let videoApiKey = config.videoSecretKey;
 
 /* LISTEN NOTES API */
 
 const podcastURL =
   "https://listen-api.listennotes.com/api/v2/search?type=podcast";
-let podcastSecretKey = config.podcastApiKey;
+let podcastApiKey = config.podcastSecretKey;
 
 const podcastHeader = {
   headers: new Headers({

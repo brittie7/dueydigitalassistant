@@ -11,6 +11,11 @@
     margin-top: 2rem;
   }
 
+  h2 {
+    color: gray;
+    border-bottom: black;
+  }
+  
   input {
     width: 60px;
     height: 30px;
