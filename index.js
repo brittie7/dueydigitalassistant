@@ -4,7 +4,7 @@ let maxResults;
 /*GOOGLE BOOKS API*/
 
 const booksURL =
-  "https://www.googleapis.com/books/v1/volumes?fields=kind,items(volumeInfo/title,volumeInfo/subtitle,volumeInfo/authors,volumeInfo/description,volumeInfo/imageLinks/thumbnail)";
+  "https://www.googleapis.com/books/v1/volumes?fields=kind,items(volumeInfo/title,volumeInfo/subtitle,volumeInfo/authors,volumeInfo/description,volumeInfo/imageLinks/thumbnail,volumeInfo/previewLink)";
 let booksApiKey = config.booksSecretKey;
 
 /* YOUTUBE API */
@@ -88,6 +88,7 @@ function getResources(query, maximumResults) {
             })
             .then((response3) => {
               displayResults(response1, response2, response3);
+              console.log(response1, response2, response3);
             });
         })
 
@@ -103,29 +104,55 @@ function displayResults(response1, response2, response3) {
   ).empty();
 
   for (let i = 0; i < response1.items.length; i++) {
-    $("#js-results-list-video").append(
-      `<li><a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a><h3>${response1.items[i].snippet.title}</h3><p>${response1.items[i].snippet.description}</p>
+    if (response1.items[i].snippet.description.length > 220) {
+      $("#js-results-list-video").append(
+        `<li><a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a><h3>${response1.items[i].snippet.title}</h3><p>${response1.items[i].snippet.description.slice(0.219) + ' ...'}</p>
       </li>`
-    );
+      );
+    } else {
+      $("#js-results-list-video").append(
+        `<li><a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a><h3>${response1.items[i].snippet.title}</h3><p>${response1.items[i].snippet.description}</p>
+      </li>`
+      );
+    }
   }
+  //Books//
 
   for (let i = 0; i < response2.items.length; i++) {
-    $("#js-results-list-books").append(
-      `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description}</p>
-      </li>`
-    );
-  }
+
+    if (response2.items[i].volumeInfo.description.length > 220) {
+      $("#js-results-list-books").append(
+        `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description.slice(0, 219) + ' ...'}</p><p>${response2.items[i].volumeInfo.previewLink}</p>
+        </li>`
+      );
+
+    } else {
+      $("#js-results-list-books").append(
+        `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description};</p><p>${response2.items[i].volumeInfo.previewLink}</p>
+        </li>`
+      );
+    }
+  };
 
   for (let i = 0; i < maxResults; i++) {
-    $("#js-results-list-podcast").append(
-      `<li><img src="${response3.results[i].thumbnail}"><h3>${response3.results[i].title_original}</h3><p>${response3.results[i].description_original}</p>
+    if (response3.results[i].description_original.length > 220) {
+      $("#js-results-list-podcast").append(
+        `<li><img src="${response3.results[i].thumbnail}"><h3>${response3.results[i].title_original}</h3><p>${response3.results[i].description_original.slice(0, 219) + ' ...'}</p>
       </li>`
-    );
+      )
+    } else {
+      $("#js-results-list-podcast").append(
+        `<li><img src="${response3.results[i].thumbnail}"><h3>${response3.results[i].title_original}</h3><p>${response3.results[i].description_original}</p>
+        </li>`
+      )
+    }
+  };
 
-    //display the results section
-    $("#results").removeClass("hidden");
-  }
+  //display the results section
+  $("#results").removeClass("hidden");
 }
+
+
 
 function watchForm() {
   $("form").submit((event) => {

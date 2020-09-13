@@ -1,0 +1,335 @@
+
+/*GENERAL*/
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+  }
+
+/* Color Palette */
+:root {
+    
+    --primary-color: #004aad;
+    --secondary-color:#f8f8f8;
+    --hover-color: #0048cd;
+    --border-color: #ced4da;
+    --dark-gray: #333333;
+    --ligher-dark-gray: #444444;
+    
+  }
+
+  /*   
+  color: #004aad;
+  border-bottom: 1px solid #004aad; active*/
+
+
+  body {
+    padding-right: 10px;
+    padding-top: 10px;
+    padding-left: 10px;
+    border-bottom-width: 10px;
+    font-family: 'Heebo', sans-serif; 
+  }
+
+  /*HEADER AND SUBNAVIGATION*/
+  header {
+      background-color: white;
+      padding-right: 10px;
+      padding-top: 10px;
+      padding-left: 10px;
+      border-bottom-width: 10px;
+  }
+  h1 {
+    font-family: 'Public Sans', sans-serif;
+    margin: 0 0 15px 0;
+    color: var(--primary-color);
+  }
+
+  /* h2 {
+    text-transform: uppercase;
+    color: var(--ligher-dark-gray);
+    font-size:1rem;
+  } */
+  
+  /* main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      margin-top: 250;
+      height: 400px;
+     
+  } */
+form {
+    display: flex;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+
+  #searchDuey {
+    width: 100%;
+    height: 2rem;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem 0 0 .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: 0 10px;
+  }
+  .btn {
+    border-radius: .25rem;
+    background-color:var(--primary-color);
+    border: 2px solid var(--primary-color);
+    color: white;
+    cursor: pointer;
+    height: 2rem;
+    text-transform: uppercase;
+    font-size: .8rem;
+    padding:5px;
+  }
+
+  #searchBtn {
+    width: 10%;
+    border-radius: 0 .25rem .25rem 0;
+
+  }
+    button:hover {
+      background-color: #005DD7 ; 
+      border-color: #005DD7 ;
+  }
+
+  .fas {
+    padding: 2px;
+  }
+
+    /* Style the tab */
+    .tab {
+      display: flex;
+      align-items: center;
+      justify-content:space-evenly;
+      border-bottom: 1px solid #ced4da;
+      
+    }
+
+    /* Style the buttons inside the tab */
+    .tab button {
+      background-color: inherit;
+      color: black;
+      text-transform: uppercase;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-family: 'Heebo', sans-serif; 
+      font-size: .8rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    /* Change background color of buttons on hover */
+    .tab button:hover {
+      color: #005DD7;
+    }
+
+    /* Create an active/current tablink class */
+    .tab button.active {
+      border-bottom: 2px solid var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    /* Style the tab content */
+    .tabcontent {
+      display: none;
+      padding: 6px 12px;
+      border-top: none;
+      
+    }
+.contentBlockOuter {
+  padding: 15px;
+      margin: 10px;
+      border: 1px solid #ced4da;
+      border-radius: .25rem;
+}
+
+h3 {
+  padding-bottom: 10px;
+  color: var(--primary-color);
+}
+    .contentBlock{
+      background-color: white;
+      display: flex;
+      align-items: top;
+      width: 100%;
+  }
+
+    .contentBlockImages{
+      flex: 1;
+      flex-grow: 1;
+    }
+    
+    .contentBlockDetails {
+      flex: 2; 
+      flex-grow: 3;
+    }
+
+    img {
+      flex: 1;
+      flex-grow: 1;
+      padding-right: 10px;
+      border-radius: .25rem;
+     width: 100%;
+     /* max-width: 115px; */
+
+  }
+
+  ul {
+    list-style: none;
+  }
+
+  li {
+    padding-bottom: 5px;
+  }
+  
+#previewIcon {
+  color: white;
+  border-color: 2px solid var(--primary-color);
+}
+  .fas, .fa-eye {}
+/* .resultsNav-row{
+  width: 100%;
+  height: 30px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content:space-evenly;
+  font-size: .8rem;
+  position: relative;
+  background-color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-bottom: 1px solid #ced4da;
+  margin: 5px;
+}
+
+.resultsNav-col {
+  padding-top: 15px;
+  font-family: 'Heebo', sans-serif; 
+  color: #828489; 
+  cursor: pointer; 
+}
+
+.resultsNav-col:hover{
+  color: #ced4da; 
+  cursor: pointer;
+} */
+
+
+/*RESULTS STYLING*/
+/* .results {
+  background-color: var(--secondary-color);
+} 
+
+  .contentBlock {
+    background-color: white;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin: 10px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    width: 100%;
+}
+
+img {
+    padding-right: 10px;
+    border-radius: .25rem;
+   
+}
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h4 {
+  font-size: .9rem;}
+
+p, h3, h4 {
+    margin: 0;
+}
+
+.consumeContent {
+  border-radius: .25rem;
+  width: 25%;
+  height: 1.6rem;
+  font-size: 12px;
+} */
+
+/*h4 {
+    color: #a6a6a6;
+    
+}*/
+
+.description {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;   
+}
+  /*
+
+.accordion__button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    text-align: left;
+    background: var(--primary-color);
+    color: white;
+    transition: background 0.2s;
+  }
+  
+  .accordion__button::after {
+    content: '\25be';
+    float: right;
+    transform: scale (1.5); 
+  }
+  
+  .accordion__button--active + .accordion__content {display: block}
+  .accordion__button--active {background: var(--primary-color);}
+  .accordion__button--active::after {content: '\25b4'}
+
+  .accordion__content {
+    /*  overflow: hidden;
+      max-height: 0;
+      transition: max-height 0.2s;
+
+      padding: 0 15px;
+      font-family: sans-serif;
+      background: #f4f4f4;
+     /* display: none; // hides section w/toggle 
+      overflow: auto;
+  }
+
+  */
+
+  /* Small devices (portrait tablets and large phones, 600px and up)
+@media only screen and (min-width: 600px) {...}
+
+
+
+h3 {
+  font-size: 1.1rem;
+}
+
+h4 {
+  .9rem;}
+
+      <button id="playIcon"><i class="fas fa-play"></i></button>
+
+
+/* Medium devices (landscape tablets, 768px and up) 
+@media only screen and (min-width: 768px) {...}
+img {
+  width: 138px;
+/* Large devices (laptops/desktops, 992px and up) 
+@media only screen and (min-width: 992px) {...}

@@ -1,28 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-    <link rel="stylesheet" href="index.css" />
-    <title>Document</title>
-  </head>
-  <body>
-    <section class="container">
-      <ul id="books" class="results js-results-list-books">
-        <li>
-          <img
-            src="https://via.placeholder.com/150"
-            alt="TO BE FILLED IN LATER"
-          />
-        </li>
-        <li>Title:</li>
-        <li>By:</li>
-        <button>Read Sample</button>
-      </ul>
-    </section>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <link rel="stylesheet" href="ui.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Public+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <!-- SEARCH AND SUB NAVIGATION  -->
+  <header>
+    <h1>Duey</h1>
+    <p class="landingCopy">The web's #1 multimedia search engine.Get books, podcasts, and video
+      recommendations on your
+      favorite topics all
+      in one place.</p>
+    <form>
+      <input type="text" for="search" placeholder='Enter a Topic' id='searchDuey' class="searchItem">
+      <button id="searchBtn" class="searchItem btn" type="submit"><i class="fas fa-arrow-right"></i></button>
+    </form>
+
+    <div class="tab">
+      <button class="tablinks" onclick="displayContent(event, 'Books')">Books</button>
+      <button class="tablinks" onclick="displayContent(event, 'Podcasts')">Podcasts</button>
+      <button class="tablinks" onclick="displayContent(event, 'Videos')">Videos</button>
+    </div>
+
+    <div id="Books" class="tabcontent">
+      <div class="contentBlockOuter">
+        <h3>The Truths We Hold</h3>
+
+        <div class="contentBlock">
+          <div class="contentBlockImages">
+            <img src="/ExampleThumbnail.jpeg" alt="">
+          </div>
+          <ul class="contentBlockDetails">
+            <li>Author: Kamala Harris</li>
+            <li class="published">Published: 2020</li>
+            <li class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero, illum
+              similique nemo, iure
+              aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+              voluptatibus labore.</li>
+            <button class="btn" id="previewIcon"> <i class="fas fa-eye"></i>Preview</button>
+          </ul>
+        </div>
+        <div id="Podcasts" class="tabcontent">
+          <h3>Podcasts</h3>
+        </div>
+
+        <div id="Videos" class="tabcontent">
+          <h3>Videos</h3>
+        </div>
+
+
+
+        <script src="//code.jquery.com/jquery.min.js"></script>
+        <script type="text/javascript" src="ui.js">
+
+        </script>
+</body>
+
 </html>

@@ -1,0 +1,64 @@
+<body>
+
+  <!-- SEARCH AND SUB NAVIGATION  -->
+  <header>
+    <h1>Duey</h1>
+    <p class="landingCopy">The web's #1 multimedia search engine. Get books, podcasts, and video recommendations on your
+      favorite topics all
+      in one place.</p>
+    <form>
+      <input type="text" for="search" placeholder='Enter a Topic' id='searchDuey' class="searchItem">
+      <button class="searchBtn searchItem" type="submit"><i class="fas fa-arrow-right"></i></button>
+    </form>
+
+    <div class="tab">
+      <button class="tablinks" onclick="displayContent(event, 'Books')">Books</button>
+      <button class="tablinks" onclick="displayContent(event, 'Podcasts')">Podcasts</button>
+      <button class="tablinks" onclick="displayContent(event, 'Videos')">Videos</button>
+    </div>
+
+    <div id="Books" class="tabcontent">
+      <div class="contentBlock">
+        <div class="contentBlockLayout">
+          <img src="/ExampleThumbnail.jpeg" alt="">
+        </div>
+        <div class="contentBlockLayout">
+          <h3>Title</h3>
+          <p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero, illum
+            similique nemo, iure
+            aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+            voluptatibus labore.</p>
+          <h4>Author</h4>
+          <button id="previewIcon"> <i class="fas fa-eye"></i></button>
+        </div>
+
+        <div id="Podcasts" class="tabcontent">
+          <div class="contentBlock">
+            <div class="contentBlockLayout">
+              <img src="/ExampleThumbnail.jpeg" alt="">
+            </div>
+            <div class="contentBlockLayout">
+              <h3>Title</h3>
+              <p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero, illum
+                similique nemo, iure
+                aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+                voluptatibus labore.</p>
+              <h4>Author</h4>
+              <button id="previewIcon"> <i class="fas fa-eye"></i></button>
+            </div>
+
+            <div id="Videos" class="tabcontent">
+              <div class="contentBlock">
+                <div class="contentBlockLayout">
+                  <img src="/ExampleThumbnail.jpeg" alt="">
+                </div>
+                <div class="contentBlockLayout">
+                  <h3>Title</h3>
+                  <p class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero,
+                    illum
+                    similique nemo, iure
+                    aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+                    voluptatibus labore.</p>
+                  <h4>Author</h4>
+                  <button id="previewIcon"> <i class="fas fa-eye"></i></button>
+                </div>
