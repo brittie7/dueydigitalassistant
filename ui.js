@@ -25,16 +25,38 @@
 
 // $(handleSearch);
 
-function displayContent(evt, contentType) {
-    let i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(contentType).style.display = "block";
-    evt.currentTarget.className += " active";
+// function showBooksByDefault() {
+//     let defaultBooks = document.getElementById("#Books")
+//     defaultBooks.className += " active";
+// }
+// let viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+
+// function bookPreview() {
+//     console.log('bookPreview ran');
+//     // $('btn previewIcon').on('click', 'button', function (event) {
+//     $('button').click(function (e) {
+//         console.log(this.getAttribute('id'));
+//         debugger
+//         viewer.load(this.getAttribute('id')); //onClick of the preview button, it needs to pass the preview link to the viewer.load
+//     })
+// };
+
+function tabWatcher() {
+    $('.tablinks').click(function (e) {
+        $('.tablinks.active').removeClass('active')
+        $(e.target).addClass('active');
+
+        let contentType = $(e.target).text();
+        $('.tabcontent').hide();
+        $(`#${contentType}`).show();
+    })
+    // 1 - some el with .tablinks
+    // 2 - some el with .tabcontent
+    // 3 - 1st el has to have text that matches the id of 2nd element
 }
+
+function main() {
+    tabWatcher();
+}
+
+$(main);

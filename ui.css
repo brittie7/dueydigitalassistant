@@ -23,13 +23,18 @@
   color: #004aad;
   border-bottom: 1px solid #004aad; active*/
 
-
   body {
     padding-right: 10px;
     padding-top: 10px;
     padding-left: 10px;
     border-bottom-width: 10px;
     font-family: 'Heebo', sans-serif; 
+  }
+
+  .container {
+    margin: 0 auto;
+    max-width: 800px;
+    width: 90%;
   }
 
   /*HEADER AND SUBNAVIGATION*/
@@ -66,7 +71,13 @@ form {
     padding-top: 15px;
     padding-bottom: 10px;
 }
+.error-message {
+  color: red;
+}
 
+.hidden {
+display: none;
+}
   #searchDuey {
     width: 100%;
     height: 2rem;
@@ -92,11 +103,16 @@ form {
   #searchBtn {
     width: 10%;
     border-radius: 0 .25rem .25rem 0;
+    max-width: 55px;
 
   }
     button:hover {
       background-color: #005DD7 ; 
       border-color: #005DD7 ;
+  }
+
+  button:active {
+    transform: perspective(600px) rotateX(15deg) scale(0.9);
   }
 
   .fas {
@@ -139,10 +155,12 @@ form {
 
     /* Style the tab content */
     .tabcontent {
-      display: none;
+      display: none; 
       padding: 6px 12px;
       border-top: none;
-      
+    }
+    #Books {
+      display: block;
     }
 .contentBlockOuter {
   padding: 15px;
@@ -189,13 +207,27 @@ h3 {
   li {
     padding-bottom: 5px;
   }
+
+  .published {
+    font-size:14px;
+    color: gray;
+  }
   
-#previewIcon {
+.previewIcon {
   color: white;
   border-color: 2px solid var(--primary-color);
 }
-  .fas, .fa-eye {}
-/* .resultsNav-row{
+  .fas {
+    padding-right: 5px;
+  }
+
+  .limitBookWidth {
+    max-width: 125px;
+  }
+/*
+
+text-overflow hidden is a thing btw
+.resultsNav-row{
   width: 100%;
   height: 30px;
   margin: 0 auto;

@@ -16,57 +16,104 @@
 </head>
 
 <body>
+  <div class="container">
+    <!-- SEARCH AND SUB NAVIGATION  -->
+    <header>
+      <h1>Duey</h1>
+      <p class="landingCopy">The web's #1 multimedia search engine.Get books, podcasts, and video
+        recommendations on your
+        favorite topics all
+        in one place.</p>
+      <form>
+        <input type="text" for="search" placeholder='Enter a Topic' id='searchDuey' class="searchItem">
+        <button id="searchBtn" class="searchItem btn" type="submit"><i class="fas fa-arrow-right"></i></button>
+      </form>
 
-  <!-- SEARCH AND SUB NAVIGATION  -->
-  <header>
-    <h1>Duey</h1>
-    <p class="landingCopy">The web's #1 multimedia search engine.Get books, podcasts, and video
-      recommendations on your
-      favorite topics all
-      in one place.</p>
-    <form>
-      <input type="text" for="search" placeholder='Enter a Topic' id='searchDuey' class="searchItem">
-      <button id="searchBtn" class="searchItem btn" type="submit"><i class="fas fa-arrow-right"></i></button>
-    </form>
+      <div class="tab">
+        <button class="tablinks active" data-target="Books">Books</button>
+        <button class="tablinks">Podcasts</button>
+        <button class="tablinks">Videos</button>
+      </div>
 
-    <div class="tab">
-      <button class="tablinks" onclick="displayContent(event, 'Books')">Books</button>
-      <button class="tablinks" onclick="displayContent(event, 'Podcasts')">Podcasts</button>
-      <button class="tablinks" onclick="displayContent(event, 'Videos')">Videos</button>
-    </div>
+      <!-- BOOKS TAB -->
 
-    <div id="Books" class="tabcontent">
-      <div class="contentBlockOuter">
-        <h3>The Truths We Hold</h3>
+      <div id="Books" class="tabcontent">
+        <div class="contentBlockOuter">
+          <h3>The Truths We Hold</h3>
 
-        <div class="contentBlock">
-          <div class="contentBlockImages">
-            <img src="/ExampleThumbnail.jpeg" alt="">
+          <div class="contentBlock">
+            <div class="contentBlockImages">
+              <img src="/ExampleThumbnail.jpeg" class="limitBookWidth" alt="">
+            </div>
+            <ul class="contentBlockDetails">
+              <li>Author: Kamala Harris</li>
+              <li class="published">Published: 2020</li>
+              <li class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero, illum
+                similique nemo, iure
+                aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+                voluptatibus labore.</li>
+              <button class="btn previewIcon" id="ISBN:9780525560739"> <i class="fas fa-eye"></i>Preview</button>
+              <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
+            </ul>
           </div>
-          <ul class="contentBlockDetails">
-            <li>Author: Kamala Harris</li>
-            <li class="published">Published: 2020</li>
-            <li class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero, illum
-              similique nemo, iure
-              aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
-              voluptatibus labore.</li>
-            <button class="btn" id="previewIcon"> <i class="fas fa-eye"></i>Preview</button>
-          </ul>
-        </div>
-        <div id="Podcasts" class="tabcontent">
-          <h3>Podcasts</h3>
-        </div>
 
-        <div id="Videos" class="tabcontent">
+        </div>
+      </div>
+
+      <!-- PODCASTS TAB -->
+      <div id="Podcasts" class="tabcontent">
+        <div class="contentBlockOuter">
+          <h3>The Truths We Hold</h3>
+
+          <div class="contentBlock">
+            <div class="contentBlockImages">
+              <img src="/PodcastExampleThumbnail.jpg" alt="">
+            </div>
+            <ul class="contentBlockDetails">
+              <li>Author: Kamala Harris</li>
+              <li class="published">Published: 2020</li>
+              <li class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero,
+                illum
+                similique nemo, iure
+                aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+                voluptatibus labore.</li>
+              <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- VIDEOS TAB -->
+
+      <div id="Videos" class="tabcontent">
+        <div class="contentBlockOuter">
           <h3>Videos</h3>
+
+          <div class="contentBlock">
+            <div class="contentBlockImages">
+              <img src="/PodcastExampleThumbnail.jpg" alt="">
+            </div>
+            <ul class="contentBlockDetails">
+              <li>Author: Kamala Harris</li>
+              <li class="published">Published: 2020</li>
+              <li class="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Velit nulla vero,
+                illum
+                similique nemo, iure
+                aliquid, repellendus blanditiis animi iste necessitatibus qui. Consequatur quod ad quae debitis nisi
+                voluptatibus labore.</li>
+              <button class="btn previewIcon"> <i class="fas fa-play"></i>Watch</button>
+            </ul>
+          </div>
         </div>
+      </div>
 
 
 
-        <script src="//code.jquery.com/jquery.min.js"></script>
-        <script type="text/javascript" src="ui.js">
+      <script src="//code.jquery.com/jquery.min.js"></script>
+      <script type="text/javascript" src="ui.js">
 
-        </script>
+      </script>
+  </div>
 </body>
 
 </html>

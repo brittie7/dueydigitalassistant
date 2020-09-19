@@ -1,11 +1,13 @@
 "use strict";
+
 let maxResults;
 
 /*GOOGLE BOOKS API*/
 
 const booksURL =
-  "https://www.googleapis.com/books/v1/volumes?fields=kind,items(volumeInfo/title,volumeInfo/subtitle,volumeInfo/authors,volumeInfo/description,volumeInfo/imageLinks/thumbnail,volumeInfo/previewLink)";
+  "https://www.googleapis.com/books/v1/volumes?fields=kind,items(volumeInfo/title,volumeInfo/subtitle,volumeInfo/authors,volumeInfo/description,volumeInfo/imageLinks/thumbnail,volumeInfo/industryIdentifiers,volumeInfo/publishedDate)";
 let booksApiKey = config.booksSecretKey;
+google.books.load();
 
 /* YOUTUBE API */
 
@@ -91,7 +93,6 @@ function getResources(query, maximumResults) {
               console.log(response1, response2, response3);
             });
         })
-
         .catch((err) => {
           $("#js-error-message").text(`Something went wrong: ${err.message}`);
         });
@@ -100,71 +101,191 @@ function getResources(query, maximumResults) {
 
 function displayResults(response1, response2, response3) {
   $(
-    "#js-results-list-video, #js-results-list-books, #js-results-list-podcast"
+    "#Videos, #Books, #Podcasts"
   ).empty();
 
+  //   //VIDEOS//
   for (let i = 0; i < response1.items.length; i++) {
+    let videoPubDate = response1.items[i].snippet.publishedAt;
+    let videoPubYear = videoPubDate.slice(0, 4);
+    // console.log(videoPubYear);
     if (response1.items[i].snippet.description.length > 220) {
-      $("#js-results-list-video").append(
-        `<li><a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a><h3>${response1.items[i].snippet.title}</h3><p>${response1.items[i].snippet.description.slice(0.219) + ' ...'}</p>
-      </li>`
+      $("#Videos").append(
+        `<div class="contentBlockOuter">
+    <h3>${response1.items[i].snippet.title}</h3>
+
+    <div class="contentBlock">
+      <div class="contentBlockImages">
+      <a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a>
+      </div>
+      <ul class="contentBlockDetails">
+        <li>Author: Kamala Harris</li>
+        <li class="published">Published: ${videoPubYear}</li>
+        <li class="description">${response1.items[i].snippet.description.slice(0, 219) + ' ...'}.</li>
+        <button class="btn previewIcon"> <i class="fas fa-play"></i>Watch</button>
+      </ul>
+    </div>
+</div>`
       );
     } else {
-      $("#js-results-list-video").append(
-        `<li><a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a><h3>${response1.items[i].snippet.title}</h3><p>${response1.items[i].snippet.description}</p>
-      </li>`
+      $("#Videos").append(
+        `<div class="contentBlockOuter">
+    <h3>${response1.items[i].snippet.title}</h3>
+    <div class="contentBlock">
+      <div class="contentBlockImages">
+      <a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a>
+      </div>
+      <ul class="contentBlockDetails">
+        <li>Author: Kamala Harris</li>
+        <li class="published">Published: ${videoPubYear}</li>
+        <li class="description">${response1.items[i].snippet.description}.</li>
+        <button class="btn previewIcon"> <i class="fas fa-play"></i>Watch</button>
+      </ul>
+    </div>
+</div>`
       );
     }
   }
-  //Books//
+  //BOOKS//
 
   for (let i = 0; i < response2.items.length; i++) {
+    let bookPubDate = response2.items[i].volumeInfo.publishedDate;
+    let bookPubYear = bookPubDate.slice(0, 4);
+    console.log(bookPubYear);
+    console.log(typeof (response2.items[i].volumeInfo.industryIdentifiers[0].type + ": " + response2.items[i].volumeInfo.industryIdentifiers[0].identifier));
+    let previewID = response2.items[i].volumeInfo.industryIdentifiers[0].identifier
 
     if (response2.items[i].volumeInfo.description.length > 220) {
-      $("#js-results-list-books").append(
-        `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description.slice(0, 219) + ' ...'}</p><p>${response2.items[i].volumeInfo.previewLink}</p>
-        </li>`
-      );
 
+      $('#Books').append(
+        `<div class="contentBlockOuter">
+          <h3>${response2.items[i].volumeInfo.title}</h3>
+          <div class="contentBlock">
+            <div class="contentBlockImages">
+              <img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"" class="limitBookWidth" alt="Picture of ${response2.items[i].volumeInfo.title}'s book cover">
+            </div>
+            <ul class="contentBlockDetails">
+              <li>Author: ${response2.items[i].volumeInfo.authors}</li>
+              <li class="published">Published: ${bookPubYear}</li>
+              <li class="description">${response2.items[i].volumeInfo.description.slice(0, 219) + ' ...'}</li>
+              <button class="btn previewIcon" id="${previewID}"> <i class="fas fa-eye"></i>Preview</button>
+            </ul>
+          </div>
+
+        </div>
+      </div>`
+      )
     } else {
-      $("#js-results-list-books").append(
-        `<li><img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"><h3>${response2.items[i].volumeInfo.title}</h3><p>${response2.items[i].volumeInfo.description};</p><p>${response2.items[i].volumeInfo.previewLink}</p>
-        </li>`
-      );
+      $('#Books').append(
+        `<div class="contentBlockOuter">
+          <h3>${response2.items[i].volumeInfo.title}</h3>
+          <div class="contentBlock">
+            <div class="contentBlockImages">
+              <img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"" class="limitBookWidth" alt="Picture of ${response2.items[i].volumeInfo.title}'s book cover">
+            </div>
+            <ul class="contentBlockDetails">
+              <li>Author: ${response2.items[i].volumeInfo.authors}</li>
+              <li class="published">Published: ${bookPubYear}</li>
+              <li class="description">${response2.items[i].volumeInfo.description}</li>
+              <button class="btn previewIcon id="${previewID}"> <i class="fas fa-eye"></i>Preview</button>
+            </ul>
+          </div>
+        </div>
+      `)
     }
   };
 
-  for (let i = 0; i < maxResults; i++) {
-    if (response3.results[i].description_original.length > 220) {
-      $("#js-results-list-podcast").append(
-        `<li><img src="${response3.results[i].thumbnail}"><h3>${response3.results[i].title_original}</h3><p>${response3.results[i].description_original.slice(0, 219) + ' ...'}</p>
-      </li>`
-      )
-    } else {
-      $("#js-results-list-podcast").append(
-        `<li><img src="${response3.results[i].thumbnail}"><h3>${response3.results[i].title_original}</h3><p>${response3.results[i].description_original}</p>
-        </li>`
-      )
-    }
-  };
+  // //PODCASTS//
+  // console.log(response3.results[0].earliest_pub_date_ms);
+  // for (let i = 0; i < maxResults; i++) {
+  //   let podcastPubDate = new Date(response3.results[i].earliest_pub_date_ms);
+  //   console.log(typeof (podcastPubDate));
+  //   let podcastPubYear = podcastPubDate.getFullYear();
+
+
+  //   let podcastDesc = response3.results[i].description_original;
+
+  //   if (response3.results[i].description_original.length > 220) {
+  //     $("#Podcasts").append(`<class="tabcontent">
+  //     <div class="contentBlockOuter">
+  //       <h3>${response3.results[i].title_original}</h3>
+
+  //       <div class="contentBlock">
+  //         <div class="contentBlockImages">
+  //           <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
+  //         </div>
+  //         <ul class="contentBlockDetails">
+  //           <li>Author: Kamala Harris</li>
+  //           // <li class="published">Published: ${podcastPubYear}</li>
+  //           <li class="description">${podcastDesc.slice(0, 219) + ' ...'}</li>
+  //           <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //   </div>`)
+  //   } else {
+  //     $("#Podcasts").append(`<class="tabcontent">
+  //     <div class="contentBlockOuter">
+  //       <h3>${response3.results[i].title_original}</h3>
+
+  //       <div class="contentBlock">
+  //         <div class="contentBlockImages">
+  //           <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
+  //         </div>
+  //         <ul class="contentBlockDetails">
+  //           <li>Author: Kamala Harris</li>
+  //           // <li class="published">Published: ${podcastPubYear}</li>
+  //           <li class="description">${podcastDesc}</li>
+  //           <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+  //         </ul>
+  //       </div>
+  //     </div>
+  //   </div>`)
+  //   }
+  // };
+
+
 
   //display the results section
   $("#results").removeClass("hidden");
 }
 
+function tabWatcher() {
 
+  //Changes the way that the tab looks
+  $('.tablinks').click(function (e) {
+    $('.tablinks.active').removeClass('active')
+    $(e.target).addClass('active');
+
+    //Changes which data is showing
+    let contentType = $(e.target).text(); //Books or Podcasts or Videos
+    $('.tabcontent').hide();
+    $(`#${contentType}`).show();
+  })
+  // 1 - some el with .tablinks
+  // 2 - some el with .tabcontent
+  // 3 - 1st el has to have text that matches the id of 2nd element
+}
+
+function main() {
+  tabWatcher();
+}
+
+$(main);
 
 function watchForm() {
   $("form").submit((event) => {
     event.preventDefault();
-    const searchTerm = $("#js-search-term").val();
+    const searchTerm = $("#searchDuey").val();
     maxResults = $("#js-max-results").val();
-    console.log(searchTerm, maxResults);
+    // console.log(searchTerm, maxResults);
     getResources(searchTerm, maxResults);
   });
 }
 
 $(watchForm);
+
+
 
 // https://api.github.com/users/brittie7/repos
 // just building something that adds

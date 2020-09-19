@@ -4,37 +4,62 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-  <title>Duey: Multimedia Search Engine</title>
-  <link rel="shortcut icon" href="#" />
-  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/all.min.css">
+  <link rel="stylesheet" href="css/fontawesome.min.css">
+  <link rel="stylesheet" href="ui.css" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500&family=Public+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+  <title>Document</title>
 </head>
+
 
 <body>
   <div class="container">
-    <h1>Duey, the Web's #1 Multimedia Search Engine</h1>
-    <h3>Get books, podcasts, and video recommendations on your favorite topics all in one place</h3>
+    <header>
+      <h1>Duey</h1>
+      <p class="landingCopy">The web's #1 multimedia search engine.Get books, podcasts, and video
+        recommendations on your
+        favorite topics all
+        in one place.</p>
+      <form id="js-form">
+        <input type="text" for="search" placeholder='Enter a Topic' id='searchDuey' class="searchItem" autofocus="on"
+          required>
+        <input type="number" name="max-results" id="js-max-results" class="hidden" value="10" />
+        <button id="searchBtn" class="searchItem btn" type="submit"><i class="fas fa-arrow-right"></i></button>
+      </form>
+    </header>
 
-    <!--audio, video, image, and text results-->
-
-    <form id="js-form">
-      <label for="search-term">Search</label>
-      <input type="text" name="search-term" id="js-search-term" required />
-      <label for="max-results">Maximum Results Returned:</label>
-      <input type="number" name="max-results" id="js-max-results" value="1" />
-      <input type="submit" value="Search!" />
-    </form>
-
+    <!-- SEARCH AND SUB NAVIGATION  -->
     <section id="results" class="hidden">
-      <h2>Book Recommendations</h2>
-      <ul id="js-results-list-books"></ul>
-      <h2>Podcast Recommendations</h2>
-      <ul id="js-results-list-podcast"></ul>
-      <h2>Video Recommendations</h2>
-      <ul id="js-results-list-video"></ul>
+      <div class="tab">
+        <button class="tablinks active" data-target="Books">Books</button>
+        <button class="tablinks">Podcasts</button>
+        <button class="tablinks">Videos</button>
+      </div>
+
+      <!--AUDIO VIDEO IMAGE AND TEXT RESULTS-->
+
+
+      <!-- BOOKS TAB -->
+
+      <ul id="Books" class="tabcontent"></ul>
+      <div id="viewerCanvas" class="hidden" style="width: 600px; height: 500px"></div>
+
+      <!-- PODCASTS TAB -->
+      <ul id="Podcasts" class="tabcontent"></ul>
+
+      <!-- VIDEOS TAB -->
+      <ul id="Videos" class="tabcontent"></ul>
     </section>
+
+
     <p id="js-error-message" class="error-message"></p>
   </div>
+  </div>
+  <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
     crossorigin="anonymous"></script>
   <script type='text/javascript' src='config.js'></script>
