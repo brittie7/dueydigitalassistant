@@ -4,20 +4,51 @@
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>Google Books Embedded Viewer API Example</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
     <script type="text/javascript">
         google.books.load();
 
         function initialize() {
-            let viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+            let viewer
+                = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
             viewer.load('ISBN:9780525560739'); //onClick of the preview button, it needs to pass the preview link to the viewer.load
         }
         google.books.setOnLoadCallback(initialize);
+
+        // let bookID = '9780525560739';
+
+
+
+
+        // google.books.load();
+
+        // function initialize() {
+        //     let viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        //     viewer.load('ISBN:9780525560739'); //onClick of the preview button, it needs to pass the preview link to the viewer.load
+        // }
+        // google.books.setOnLoadCallback(initialize);
+
+//         function showPreview() {
+
+//             $('#9780525560739').click(function (e) {
+//                 console.log('click callback works');
+//             });
+//         }
+
+// function main() {
+//     showPreview();
+// }
+
+// $(main);
+
     </script>
 </head>
 
 <body>
     <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
+    <button class="btn previewIcon" id="9780525560739"> <i class="fas fa-eye"></i>Preview</button>
 </body>
 
 </html>

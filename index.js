@@ -36,7 +36,6 @@ function formatQueryParams(params) {
 
 /*RETURNS EACH TYPE OF RETULT BASED ON SEARCH CRITERIA*/
 function getResources(query, maximumResults) {
-
   /*CREATES THE VIDEO URL DYNAMICALLY*/
   const videoParams = {
     key: videoApiKey,
@@ -89,8 +88,8 @@ function getResources(query, maximumResults) {
               throw new Error(response2.statusText);
             })
             .then((response3) => {
-              displayResults(response1, response2, response3);
               console.log(response1, response2, response3);
+              displayResults(response1, response2, response3);
             });
         })
         .catch((err) => {
@@ -100,9 +99,7 @@ function getResources(query, maximumResults) {
 }
 
 function displayResults(response1, response2, response3) {
-  $(
-    "#Videos, #Books, #Podcasts"
-  ).empty();
+  $("#Videos, #Books, #Podcasts").empty();
 
   //   //VIDEOS//
   for (let i = 0; i < response1.items.length; i++) {
@@ -115,14 +112,15 @@ function displayResults(response1, response2, response3) {
     <h3>${response1.items[i].snippet.title}</h3>
 
     <div class="contentBlock">
-      <div class="contentBlockImages">
-      <a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a>
-      </div>
+      <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${
+        response1.items[i].id.videoId
+      }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <ul class="contentBlockDetails">
         <li>Author: Kamala Harris</li>
         <li class="published">Published: ${videoPubYear}</li>
-        <li class="description">${response1.items[i].snippet.description.slice(0, 219) + ' ...'}.</li>
-        <button class="btn previewIcon"> <i class="fas fa-play"></i>Watch</button>
+        <li class="description">${
+          response1.items[i].snippet.description.slice(0, 219) + " ..."
+        }.</li>
       </ul>
     </div>
 </div>`
@@ -132,14 +130,12 @@ function displayResults(response1, response2, response3) {
         `<div class="contentBlockOuter">
     <h3>${response1.items[i].snippet.title}</h3>
     <div class="contentBlock">
-      <div class="contentBlockImages">
-      <a href="https://www.youtube.com/watch?v=${response1.items[i].id.videoId}"><img src="${response1.items[i].snippet.thumbnails.default.url}" alt="video thumbnail"></a>
-      </div>
+      <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${response1.items[i].id.videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      <ul class="contentBlockDetails">
       <ul class="contentBlockDetails">
         <li>Author: Kamala Harris</li>
         <li class="published">Published: ${videoPubYear}</li>
         <li class="description">${response1.items[i].snippet.description}.</li>
-        <button class="btn previewIcon"> <i class="fas fa-play"></i>Watch</button>
       </ul>
     </div>
 </div>`
@@ -151,32 +147,38 @@ function displayResults(response1, response2, response3) {
   for (let i = 0; i < response2.items.length; i++) {
     let bookPubDate = response2.items[i].volumeInfo.publishedDate;
     let bookPubYear = bookPubDate.slice(0, 4);
-    console.log(bookPubYear);
-    console.log(typeof (response2.items[i].volumeInfo.industryIdentifiers[0].type + ": " + response2.items[i].volumeInfo.industryIdentifiers[0].identifier));
-    let previewID = response2.items[i].volumeInfo.industryIdentifiers[0].identifier
+    // console.log(bookPubYear);
+    // console.log(typeof (response2.items[i].volumeInfo.industryIdentifiers[0].type + ": " + response2.items[i].volumeInfo.industryIdentifiers[0].identifier));
+    let previewID =
+      response2.items[i].volumeInfo.industryIdentifiers[0].identifier;
 
     if (response2.items[i].volumeInfo.description.length > 220) {
-
-      $('#Books').append(
+      $("#Books").append(
         `<div class="contentBlockOuter">
           <h3>${response2.items[i].volumeInfo.title}</h3>
           <div class="contentBlock">
             <div class="contentBlockImages">
-              <img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"" class="limitBookWidth" alt="Picture of ${response2.items[i].volumeInfo.title}'s book cover">
+              <img src="${
+                response2.items[i].volumeInfo.imageLinks.thumbnail
+              }"" class="limitBookWidth" alt="Picture of ${
+          response2.items[i].volumeInfo.title
+        }'s book cover">
             </div>
             <ul class="contentBlockDetails">
               <li>Author: ${response2.items[i].volumeInfo.authors}</li>
               <li class="published">Published: ${bookPubYear}</li>
-              <li class="description">${response2.items[i].volumeInfo.description.slice(0, 219) + ' ...'}</li>
+              <li class="description">${
+                response2.items[i].volumeInfo.description.slice(0, 219) + " ..."
+              }</li>
               <button class="btn previewIcon" id="${previewID}"> <i class="fas fa-eye"></i>Preview</button>
             </ul>
           </div>
 
         </div>
       </div>`
-      )
+      );
     } else {
-      $('#Books').append(
+      $("#Books").append(
         `<div class="contentBlockOuter">
           <h3>${response2.items[i].volumeInfo.title}</h3>
           <div class="contentBlock">
@@ -191,77 +193,101 @@ function displayResults(response1, response2, response3) {
             </ul>
           </div>
         </div>
-      `)
+      `
+      );
     }
-  };
+
+    $(`#${previewID}`).click(function (e) {
+      $(".viewerCanvas").remove();
+      const previewer = document.createElement("div");
+
+      previewer.classList = "viewerCanvas";
+      $(this).parent().append(previewer);
+      let viewer = new google.books.DefaultViewer(
+        document.getElementsByClassName("viewerCanvas")[0]
+      );
+      viewer.load(`ISBN:${previewID}`); //onClick of the preview button, it needs to pass the preview link to the viewer.load
+    });
+  }
 
   // //PODCASTS//
-  // console.log(response3.results[0].earliest_pub_date_ms);
-  // for (let i = 0; i < maxResults; i++) {
-  //   let podcastPubDate = new Date(response3.results[i].earliest_pub_date_ms);
-  //   console.log(typeof (podcastPubDate));
-  //   let podcastPubYear = podcastPubDate.getFullYear();
 
+  const end =
+    response3.results.length < maxResults
+      ? response3.results.length
+      : maxResults;
+  for (let i = 0; i < end; i++) {
+    console.log(response3.results[i]);
+    let podcastPubDate = new Date(response3.results[i].earliest_pub_date_ms);
+    console.log(typeof podcastPubDate);
+    let podcastPubYear = podcastPubDate.getFullYear();
 
-  //   let podcastDesc = response3.results[i].description_original;
+    let podcastDesc = response3.results[i].description_original;
 
-  //   if (response3.results[i].description_original.length > 220) {
-  //     $("#Podcasts").append(`<class="tabcontent">
-  //     <div class="contentBlockOuter">
-  //       <h3>${response3.results[i].title_original}</h3>
+    if (response3.results[i].description_original.length > 220) {
+      $("#Podcasts").append(`
+      <div class="contentBlockOuter">
+        <h3>${response3.results[i].title_original}</h3>
 
-  //       <div class="contentBlock">
-  //         <div class="contentBlockImages">
-  //           <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
-  //         </div>
-  //         <ul class="contentBlockDetails">
-  //           <li>Author: Kamala Harris</li>
-  //           // <li class="published">Published: ${podcastPubYear}</li>
-  //           <li class="description">${podcastDesc.slice(0, 219) + ' ...'}</li>
-  //           <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   </div>`)
-  //   } else {
-  //     $("#Podcasts").append(`<class="tabcontent">
-  //     <div class="contentBlockOuter">
-  //       <h3>${response3.results[i].title_original}</h3>
-
-  //       <div class="contentBlock">
-  //         <div class="contentBlockImages">
-  //           <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
-  //         </div>
-  //         <ul class="contentBlockDetails">
-  //           <li>Author: Kamala Harris</li>
-  //           // <li class="published">Published: ${podcastPubYear}</li>
-  //           <li class="description">${podcastDesc}</li>
-  //           <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
-  //         </ul>
-  //       </div>
-  //     </div>
-  //   </div>`)
-  //   }
-  // };
-
-
+        <div class="contentBlock">
+          <div class="contentBlockImages">
+            <img src="${response3.results[i].thumbnail}" alt="Picture of ${
+        response3.results[i].title_original
+      }'s book cover">
+          </div>
+          <ul class="contentBlockDetails">
+            <li>Author: Kamala Harris</li>
+            // <li class="published">Published: ${podcastPubYear}</li>
+            <li class="description">${podcastDesc.slice(0, 219) + " ..."}</li>
+            <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+          </ul>
+        </div>
+      </div>`);
+    } else {
+      $("#Podcasts").append(`<div class="contentBlockOuter">
+        <h3>${response3.results[i].title_original}</h3>
+        <div class="contentBlock">
+          <div class="contentBlockImages">
+            <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
+          </div>
+          <ul class="contentBlockDetails">
+            <li>Author: Kamala Harris</li>
+            // <li class="published">Published: ${podcastPubYear}</li>
+            <li class="description">${podcastDesc}</li>
+            <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+          </ul>
+        </div>
+    </div>`);
+    }
+  }
 
   //display the results section
   $("#results").removeClass("hidden");
 }
 
-function tabWatcher() {
+function alertNotFound() {
+  alert("No preview available for this book");
+}
 
+function previewBook(previewIDStr) {
+  console.log("previewBook ran");
+  let viewer = new google.books.DefaultViewer(
+    document.getElementById("viewerCanvas")
+  );
+  viewer.load(previewIDStr, alertNotFound);
+}
+
+function tabWatcher() {
   //Changes the way that the tab looks
-  $('.tablinks').click(function (e) {
-    $('.tablinks.active').removeClass('active')
-    $(e.target).addClass('active');
+  $(".tablinks").click(function (e) {
+    $(".tablinks.active").removeClass("active");
+    $(e.target).addClass("active");
 
     //Changes which data is showing
     let contentType = $(e.target).text(); //Books or Podcasts or Videos
-    $('.tabcontent').hide();
+    $(".tabcontent").hide();
     $(`#${contentType}`).show();
-  })
+  });
   // 1 - some el with .tablinks
   // 2 - some el with .tabcontent
   // 3 - 1st el has to have text that matches the id of 2nd element
@@ -281,11 +307,10 @@ function watchForm() {
     // console.log(searchTerm, maxResults);
     getResources(searchTerm, maxResults);
   });
+  google.books.load();
 }
 
 $(watchForm);
-
-
 
 // https://api.github.com/users/brittie7/repos
 // just building something that adds
