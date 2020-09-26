@@ -88,7 +88,7 @@ function getResources(query, maximumResults) {
               throw new Error(response2.statusText);
             })
             .then((response3) => {
-              console.log(response1, response2, response3);
+              // console.log(response1, response2, response3);
               displayResults(response1, response2, response3);
             });
         })
@@ -105,18 +105,18 @@ function displayResults(response1, response2, response3) {
   for (let i = 0; i < response1.items.length; i++) {
     let videoPubDate = response1.items[i].snippet.publishedAt;
     let videoPubYear = videoPubDate.slice(0, 4);
-    // console.log(videoPubYear);
+    let videoChannel = response1.items[i].snippet.channelTitle;
     if (response1.items[i].snippet.description.length > 220) {
       $("#Videos").append(
         `<div class="contentBlockOuter">
     <h3>${response1.items[i].snippet.title}</h3>
 
-    <div class="contentBlock">
+    <div class="contentBlock videoWrap">
       <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${
         response1.items[i].id.videoId
       }" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <ul class="contentBlockDetails">
-        <li>Author: Kamala Harris</li>
+        <li>Channel: ${videoChannel}</li>
         <li class="published">Published: ${videoPubYear}</li>
         <li class="description">${
           response1.items[i].snippet.description.slice(0, 219) + " ..."
@@ -129,11 +129,11 @@ function displayResults(response1, response2, response3) {
       $("#Videos").append(
         `<div class="contentBlockOuter">
     <h3>${response1.items[i].snippet.title}</h3>
-    <div class="contentBlock">
+    <div class="contentBlock videoWrap">
       <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${response1.items[i].id.videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
       <ul class="contentBlockDetails">
       <ul class="contentBlockDetails">
-        <li>Author: Kamala Harris</li>
+        <li>Channel: ${videoChannel}</li>
         <li class="published">Published: ${videoPubYear}</li>
         <li class="description">${response1.items[i].snippet.description}.</li>
       </ul>
@@ -160,7 +160,7 @@ function displayResults(response1, response2, response3) {
             <div class="contentBlockImages">
               <img src="${
                 response2.items[i].volumeInfo.imageLinks.thumbnail
-              }"" class="limitBookWidth" alt="Picture of ${
+              }"" class="limitWidth" alt="Picture of ${
           response2.items[i].volumeInfo.title
         }'s book cover">
             </div>
@@ -183,7 +183,7 @@ function displayResults(response1, response2, response3) {
           <h3>${response2.items[i].volumeInfo.title}</h3>
           <div class="contentBlock">
             <div class="contentBlockImages">
-              <img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"" class="limitBookWidth" alt="Picture of ${response2.items[i].volumeInfo.title}'s book cover">
+              <img src="${response2.items[i].volumeInfo.imageLinks.thumbnail}"" class="limitWidth" alt="Picture of ${response2.items[i].volumeInfo.title}'s book cover">
             </div>
             <ul class="contentBlockDetails">
               <li>Author: ${response2.items[i].volumeInfo.authors}</li>
@@ -206,7 +206,7 @@ function displayResults(response1, response2, response3) {
       let viewer = new google.books.DefaultViewer(
         document.getElementsByClassName("viewerCanvas")[0]
       );
-      viewer.load(`ISBN:${previewID}`); //onClick of the preview button, it needs to pass the preview link to the viewer.load
+      viewer.load(`ISBN:${previewID}`);
     });
   }
 
@@ -221,26 +221,27 @@ function displayResults(response1, response2, response3) {
     let podcastPubDate = new Date(response3.results[i].earliest_pub_date_ms);
     console.log(typeof podcastPubDate);
     let podcastPubYear = podcastPubDate.getFullYear();
-
     let podcastDesc = response3.results[i].description_original;
 
     if (response3.results[i].description_original.length > 220) {
       $("#Podcasts").append(`
       <div class="contentBlockOuter">
         <h3>${response3.results[i].title_original}</h3>
-
         <div class="contentBlock">
           <div class="contentBlockImages">
-            <img src="${response3.results[i].thumbnail}" alt="Picture of ${
+            <img src="${
+              response3.results[i].thumbnail
+            }" class="limitWidth"" alt="Picture of ${
         response3.results[i].title_original
-      }'s book cover">
+      }'s cover">
           </div>
           <ul class="contentBlockDetails">
-            <li>Author: Kamala Harris</li>
-            // <li class="published">Published: ${podcastPubYear}</li>
+            <li>Publisher: ${response3.results[i].publisher_highlighted}</li>
+            <li class="published">Published: ${podcastPubYear}</li>
             <li class="description">${podcastDesc.slice(0, 219) + " ..."}</li>
-            <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
-          </ul>
+            <button class="btn previewIcon"> <i class="fas fa-play"></i><a href="${
+              response3.results[i].website
+            }" target="_blank">Listen</a></button>          </ul>
         </div>
       </div>`);
     } else {
@@ -248,13 +249,13 @@ function displayResults(response1, response2, response3) {
         <h3>${response3.results[i].title_original}</h3>
         <div class="contentBlock">
           <div class="contentBlockImages">
-            <img src="${response3.results[i].thumbnail}" alt="Picture of ${response3.results[i].title_original}'s book cover">
+            <img src="${response3.results[i].thumbnail}" class="limitWidth" alt="Picture of ${response3.results[i].title_original}'s cover">
           </div>
           <ul class="contentBlockDetails">
-            <li>Author: Kamala Harris</li>
-            // <li class="published">Published: ${podcastPubYear}</li>
+            <li>Publisher: ${response3.results[i].publisher_highlighted}</li>
+            <li class="published">Published: ${podcastPubYear}</li>
             <li class="description">${podcastDesc}</li>
-            <button class="btn previewIcon"> <i class="fas fa-play"></i>Listen</button>
+            <button class="btn previewIcon"> <i class="fas fa-play"></i><a href="${response3.results[i].website}" target="_blank">Listen</a></button>
           </ul>
         </div>
     </div>`);
@@ -263,6 +264,14 @@ function displayResults(response1, response2, response3) {
 
   //display the results section
   $("#results").removeClass("hidden");
+}
+
+{
+  /* <audio controls>
+  <source src="horse.ogg" type="audio/ogg">
+  <source src="horse.mp3" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio> */
 }
 
 function alertNotFound() {

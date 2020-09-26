@@ -173,9 +173,10 @@ h3 {
   display: flex;
   align-items: stretch;
   width: 100%;
+}
+.videoWrap {
   flex-wrap: wrap;
 }
-
 .contentBlock iframe {
   min-width: 300px;
   flex: 1;
@@ -205,7 +206,6 @@ img {
   padding-right: 10px;
   border-radius: 0.25rem;
   width: 100%;
-  /* max-width: 115px; */
 }
 
 ul {
@@ -229,11 +229,33 @@ li {
   padding-right: 5px;
 }
 
-.limitBookWidth {
+.limitWidth {
   max-width: 125px;
 }
 
 .description {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
+}
+
+/* Neutralizing Link - botton code manages UI */
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+a:active {
+  color: white;
 }
