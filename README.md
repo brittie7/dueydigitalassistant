@@ -12,3 +12,5 @@ Duey is Google reimaged for your right brain. I see Duey as a proof of concept f
    ![](readmeImages/DueyVerticalBookPreview.png)
 
 Just fill in a topic of interest and Duey does the rest! With one click, find engaging resources to sate your curiosity! 
+
+Try it here: https://brittie7.github.io/dueydigitalassistant/
