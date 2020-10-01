@@ -63,7 +63,7 @@ function getResources(query, maximumResults) {
 
   const queryStringPodcasts = formatQueryParams(podcastParams);
   const urlPodcasts = podcastURL + "&" + queryStringPodcasts;
-
+  console.log(urlVideo);
   fetch(urlVideo)
     .then((response) => {
       if (response.ok) {
@@ -144,13 +144,19 @@ function displayResults(response1, response2, response3) {
   }
   //BOOKS//
 
+  // let previewID;
   for (let i = 0; i < response2.items.length; i++) {
     let bookPubDate = response2.items[i].volumeInfo.publishedDate;
     let bookPubYear = bookPubDate.slice(0, 4);
     // console.log(bookPubYear);
     // console.log(typeof (response2.items[i].volumeInfo.industryIdentifiers[0].type + ": " + response2.items[i].volumeInfo.industryIdentifiers[0].identifier));
+
+    // if (response2.items[i].volumeInfo.industryIdentifiers.length > 1) {
     let previewID =
       response2.items[i].volumeInfo.industryIdentifiers[0].identifier;
+    // } else {
+    //   previewID = response2.items[i].volumeInfo.industryIdentifiers.identifier;
+    // }
 
     if (response2.items[i].volumeInfo.description.length > 220) {
       $("#Books").append(
